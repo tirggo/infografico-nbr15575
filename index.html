@@ -6,29 +6,559 @@
     <title>NBR 15575 - Infográfico de Laboratórios</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
-        header { background-color: #f1f1f1; padding: 1rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; }
-        header img { position: absolute; left: 1rem; top: 1rem; width: 60px; }
-        .chart-container { position: relative; width: 100%; max-width: 600px; margin: auto; height: 350px; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="bg-gray-100 text-gray-800">
 
     <div class="container mx-auto p-4 md:p-8">
-        <header class="mb-12 relative text-center shadow-md">
-            <img src="dt_senai.png" alt="Logo DT SENAI-SP">
-            <div>
-                <h1 class="text-4xl md:text-5xl font-bold text-[#F94144] mb-2">O Ecossistema NBR 15575</h1>
-                <h2 class="text-xl md:text-2xl font-light text-gray-600">Análise de Laboratórios e Ensaios de Desempenho no Brasil</h2>
-            </div>
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#F94144] mb-2">O Ecossistema NBR 15575</h1>
+            <h2 class="text-xl md:text-2xl font-light text-gray-600">Análise de Laboratórios e Ensaios de Desempenho no Brasil</h2>
         </header>
 
-        <main class="text-center text-gray-600">
-            <p class="mb-8 text-lg">Visualização interativa dos principais laboratórios que atuam com a NBR 15575 no Brasil, incluindo comparativos financeiros, investimentos e nichos de atuação.</p>
-            <p class="text-sm text-gray-500">Abra o projeto completo no repositório do GitHub para explorar os gráficos e análises interativas.</p>
-        </main>
+        <section class="mb-12">
+            <h3 class="text-2xl font-semibold text-[#577590] mb-4 text-center">Visão Geral do Mercado (Estimativas 2024)</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-8">
+                A Norma de Desempenho (NBR 15575) redefiniu a construção civil brasileira, criando um robusto mercado para ensaios e certificações. Laboratórios públicos e privados competem e colaboram para garantir a qualidade habitacional. A visualização abaixo representa o faturamento anual estimado do setor, focado especificamente nos ensaios da NBR 15575.
+            </p>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h4 class="text-lg font-semibold text-center mb-4">Faturamento Estimado (NBR 15575) por Instituição</h4>
+                <div class="chart-container" style="height: 300px; max-height: 350px;">
+                    <canvas id="marketShareChart"></canvas>
+                </div>
+                <!-- FONTE ADICIONADA -->
+                <p class="text-xs text-gray-500 italic text-center mt-2">
+                    Fonte: Estimativas de Mercado (Simulação para este infográfico).
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h3 class="text-2xl font-semibold text-[#577590] mb-8 text-center">Análise Comparativa: Finanças e Projeções</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-8">
+                Abaixo, comparamos o faturamento estimado de 2024 com a projeção para 2025 (baseada num crescimento setorial de 3,5%) e analisamos a relação entre o faturamento e o investimento em P&D e tecnologia de cada entidade.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h4 class="text-lg font-semibold text-center mb-4">Faturamento (2024) vs. Projeção (2025)</h4>
+                    <div class="chart-container">
+                        <canvas id="projectionChart"></canvas>
+                    </div>
+                    <!-- FONTE ADICIONADA -->
+                    <p class="text-xs text-gray-500 italic text-center mt-2">
+                        Fonte: Estimativas de Mercado (Simulação para este infográfico).
+                    </p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h4 class="text-lg font-semibold text-center mb-4">Investimento (P&D) vs. Faturamento (2024)</h4>
+                    <div class="chart-container">
+                        <canvas id="investmentChart"></canvas>
+                    </div>
+                    <!-- FONTE ADICIONADA -->
+                    <p class="text-xs text-gray-500 italic text-center mt-2">
+                        Fonte: Estimativas de Mercado (Simulação para este infográfico).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h3 class="text-2xl font-semibold text-[#577590] mb-8 text-center">O "Mapa Mental" dos Laboratórios (Perfis Detalhados)</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-8">
+                Cada instituição possui focos distintos. A estrutura abaixo detalha as áreas de atuação, demandas e dados financeiros estimados para os principais players do setor de ensaios de desempenho no Brasil, simulando a estrutura de um mapa mental. Use os botões ✨ para gerar análises e brainstorms de crescimento via IA.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-[#F94144]">
+                    <h4 class="text-xl font-bold mb-4 text-[#F94144]">IPT (Instituto de Pesquisas Tecnológicas)</h4>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><strong>Principais Ensaios NBR 15575:</strong> Desempenho Acústico (Part 4), Desempenho Térmico (Part 1/5), Segurança contra Incêndio (Part 6).</li>
+                        <li><strong>Ensaios Mais Solicitados:</strong> Acústica (campo e laboratório), Estanqueidade de fachadas.</li>
+                        <li><strong>Ensaios Menos Solicitados:</strong> Durabilidade de componentes (envelhecimento acelerado).</li>
+                        <li><strong>Faturamento NBR 15575/Ano:</strong> R$ 15.000.000 (Estimativa de Mercado)</li>
+                        <li><strong>Investimento P&D/Ano:</strong> R$ 2.500.000 (Estimativa de Mercado)</li>
+                        <li><strong>Projeção Faturamento 2025:</strong> R$ 15.525.000 (Estimativa de Mercado)</li>
+                    </ul>
+                    <button id="btn-ipt-strategy" onclick="generateAnalysis('ipt', 'strategy')" class="mt-4 w-full py-2 rounded-lg text-white font-semibold bg-[#F94144] hover:bg-[#E03A3C] transition duration-150">
+                        Gerar Análise Estratégica ✨
+                    </button>
+                    <div id="result-ipt-strategy" class="mt-4 p-3 bg-gray-50 border border-[#F94144] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#F94144] mb-2">Análise Gemini:</p>
+                        <p id="text-ipt-strategy" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                    <button id="btn-ipt-brainstorm" onclick="generateAnalysis('ipt', 'brainstorm')" class="mt-2 w-full py-2 rounded-lg text-white font-semibold bg-[#F8961E] hover:bg-[#D47E0F] transition duration-150">
+                        Brainstorm de Nicho ✨
+                    </button>
+                    <div id="result-ipt-brainstorm" class="mt-4 p-3 bg-gray-50 border border-[#F8961E] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#F8961E] mb-2">Brainstorm Gemini:</p>
+                        <p id="text-ipt-brainstorm" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-[#F3722C]">
+                    <h4 class="text-xl font-bold mb-4 text-[#F3722C]">Falcão Bauer</h4>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><strong>Principais Ensaios NBR 15575:</strong> Desempenho Estrutural (Part 3), Estanqueidade à Água (Part 5), Acústica de Pisos (Part 4).</li>
+                        <li><strong>Ensaios Mais Solicitados:</strong> Ensaios de impacto em pisos, Ensaios de guarda-corpo.</li>
+                        <li><strong>Ensaios Menos Solicitados:</strong> Análise de manuseio e utilização (portas/janelas).</li>
+                        <li><strong>Faturamento NBR 15575/Ano:</strong> R$ 12.000.000 (Estimativa de Mercado)</li>
+                        <li><strong>Investimento P&D/Ano:</strong> R$ 1.800.000 (Estimativa de Mercado)</li>
+                        <li><strong>Projeção Faturamento 2025:</strong> R$ 12.420.000 (Estimativa de Mercado)</li>
+                    </ul>
+                    <button id="btn-falcao-strategy" onclick="generateAnalysis('falcao', 'strategy')" class="mt-4 w-full py-2 rounded-lg text-white font-semibold bg-[#F3722C] hover:bg-[#D55A1D] transition duration-150">
+                        Gerar Análise Estratégica ✨
+                    </button>
+                    <div id="result-falcao-strategy" class="mt-4 p-3 bg-gray-50 border border-[#F3722C] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#F3722C] mb-2">Análise Gemini:</p>
+                        <p id="text-falcao-strategy" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                    <button id="btn-falcao-brainstorm" onclick="generateAnalysis('falcao', 'brainstorm')" class="mt-2 w-full py-2 rounded-lg text-white font-semibold bg-[#F8961E] hover:bg-[#D47E0F] transition duration-150">
+                        Brainstorm de Nicho ✨
+                    </button>
+                    <div id="result-falcao-brainstorm" class="mt-4 p-3 bg-gray-50 border border-[#F8961E] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#F8961E] mb-2">Brainstorm Gemini:</p>
+                        <p id="text-falcao-brainstorm" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-[#F9C74F]">
+                    <h4 class="text-xl font-bold mb-4 text-[#F9C74F]">Universidades (Academia)</h4>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><strong>Principais Ensaios NBR 15575:</strong> Desempenho Lumínico (Part 1), Desempenho Térmico (simulações), Acústica (Part 4).</li>
+                        <li><strong>Ensaios Mais Solicitados:</strong> Simulações computacionais (Térmico/Lumínico), Consultoria em acústica.</li>
+                        <li><strong>Ensaios Menos Solicitados:</strong> Ensaios mecânicos complexos (foco menor em serviços).</li>
+                        <li><strong>Faturamento NBR 15575/Ano:</strong> R$ 4.000.000 (Estimativa de Mercado)</li>
+                        <li><strong>Investimento P&D/Ano:</strong> R$ 1.000.000 (Estimativa de Mercado/Fomento)</li>
+                        <li><strong>Projeção Faturamento 2025:</strong> R$ 4.140.000 (Estimativa de Mercado)</li>
+                    </ul>
+                    <button id="btn-academia-strategy" onclick="generateAnalysis('academia', 'strategy')" class="mt-4 w-full py-2 rounded-lg text-gray-900 font-semibold bg-[#F9C74F] hover:bg-[#F0B83A] transition duration-150">
+                        Gerar Análise Estratégica ✨
+                    </button>
+                    <div id="result-academia-strategy" class="mt-4 p-3 bg-gray-50 border border-[#F9C74F] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#F9C74F] mb-2">Análise Gemini:</p>
+                        <p id="text-academia-strategy" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                    <button id="btn-academia-brainstorm" onclick="generateAnalysis('academia', 'brainstorm')" class="mt-2 w-full py-2 rounded-lg text-gray-900 font-semibold bg-[#F8961E] hover:bg-[#D47E0F] transition duration-150">
+                        Brainstorm de Nicho ✨
+                    </button>
+                    <div id="result-academia-brainstorm" class="mt-4 p-3 bg-gray-50 border border-[#F8961E] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#F8961E] mb-2">Brainstorm Gemini:</p>
+                        <p id="text-academia-brainstorm" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-[#90BE6D]">
+                    <h4 class="text-xl font-bold mb-4 text-[#90BE6D]">TRIONAL Ensaios</h4>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><strong>Principais Ensaios NBR 15575:</strong> Acústica de vedações (Part 4), Estanqueidade de esquadrias (Part 5), Resistência ao fogo (Part 6).</li>
+                        <li><strong>Ensaios Mais Solicitados:</strong> Acústica (medições em campo), Ensaios de estanqueidade de esquadrias.</li>
+                        <li><strong>Ensaios Menos Solicitados:</strong> Desempenho tátil e usabilidade.</li>
+                        <li><strong>Faturamento NBR 15575/Ano:</strong> R$ 7.000.000 (Estimativa de Mercado)</li>
+                        <li><strong>Investimento P&D/Ano:</strong> R$ 900.000 (Estimativa de Mercado)</li>
+                        <li><strong>Projeção Faturamento 2025:</strong> R$ 7.245.000 (Estimativa de Mercado)</li>
+                    </ul>
+                    <button id="btn-trional-strategy" onclick="generateAnalysis('trional', 'strategy')" class="mt-4 w-full py-2 rounded-lg text-white font-semibold bg-[#90BE6D] hover:bg-[#7DB05A] transition duration-150">
+                        Gerar Análise Estratégica ✨
+                    </button>
+                    <div id="result-trional-strategy" class="mt-4 p-3 bg-gray-50 border border-[#90BE6D] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#90BE6D] mb-2">Análise Gemini:</p>
+                        <p id="text-trional-strategy" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                    <button id="btn-trional-brainstorm" onclick="generateAnalysis('trional', 'brainstorm')" class="mt-2 w-full py-2 rounded-lg text-white font-semibold bg-[#F8961E] hover:bg-[#D47E0F] transition duration-150">
+                        Brainstorm de Nicho ✨
+                    </button>
+                    <div id="result-trional-brainstorm" class="mt-4 p-3 bg-gray-50 border border-[#F8961E] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#F8961E] mb-2">Brainstorm Gemini:</p>
+                        <p id="text-trional-brainstorm" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-[#43AA8B]">
+                    <h4 class="text-xl font-bold mb-4 text-[#43AA8B]">Síntese Acústica</h4>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><strong>Principais Ensaios NBR 15575:</strong> Acústica de vedações verticais (Part 4), Acústica de impacto (pisos - Part 4), Ruído de equipamentos (Part 1).</li>
+                        <li><strong>Ensaios Mais Solicitados:</strong> Todos os ensaios acústicos (campo e laboratório).</li>
+                        <li><strong>Ensaios Menos Solicitados:</strong> Ensaio de vibração de equipamentos (nicho).</li>
+                        <li><strong>Faturamento NBR 15575/Ano:</strong> R$ 5.000.000 (Estimativa de Mercado)</li>
+                        <li><strong>Investimento P&D/Ano:</strong> R$ 750.000 (Estimativa de Mercado)</li>
+                        <li><strong>Projeção Faturamento 2025:</strong> R$ 5.175.000 (Estimativa de Mercado)</li>
+                    </ul>
+                    <button id="btn-sintese-strategy" onclick="generateAnalysis('sintese', 'strategy')" class="mt-4 w-full py-2 rounded-lg text-white font-semibold bg-[#43AA8B] hover:bg-[#3C997F] transition duration-150">
+                        Gerar Análise Estratégica ✨
+                    </button>
+                    <div id="result-sintese-strategy" class="mt-4 p-3 bg-gray-50 border border-[#43AA8B] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#43AA8B] mb-2">Análise Gemini:</p>
+                        <p id="text-sintese-strategy" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                    <button id="btn-sintese-brainstorm" onclick="generateAnalysis('sintese', 'brainstorm')" class="mt-2 w-full py-2 rounded-lg text-white font-semibold bg-[#F8961E] hover:bg-[#D47E0F] transition duration-150">
+                        Brainstorm de Nicho ✨
+                    </button>
+                    <div id="result-sintese-brainstorm" class="mt-4 p-3 bg-gray-50 border border-[#F8961E] rounded-md hidden">
+                        <p class="font-bold text-sm text-[#F8961E] mb-2">Brainstorm Gemini:</p>
+                        <p id="text-sintese-brainstorm" class="text-xs italic text-gray-700">Carregando...</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="text-center mt-12 pt-6 border-t border-gray-300">
+            <p class="text-xs text-gray-500">
+                <strong>Nota Importante:</strong> Todos os valores financeiros (Faturamento, Investimento e Projeções) são <strong>Estimativas de Mercado</strong> simuladas para fins ilustrativos, baseadas no porte percebido das instituições e em tendências setoriais. Não representam dados oficiais.
+            </p>
+        </footer>
+
     </div>
+
+    <script>
+        (function() {
+            const colors = {
+                red: '#F94144',
+                orange: '#F3722C',
+                amber: '#F8961E', /* Novo: Usado para Brainstorm */
+                yellow: '#F9C74F',
+                green: '#90BE6D',
+                teal: '#43AA8B',
+                blueGray: '#577590'
+            };
+
+            const chartColors = [colors.red, colors.orange, colors.green, colors.teal, colors.yellow];
+            
+            const labConfig = {
+                ipt: {
+                    nome: 'IPT', faturamento: 15000000, investimento: 2500000, projecao: 15525000, cor: colors.red,
+                    ensaios_mais: 'Acústica (campo e laboratório), Estanqueidade de fachadas',
+                    foco_investimento: 'Desenvolvimento de novos métodos de ensaio e calibração de equipamentos.',
+                    ensaios_menos: 'Durabilidade de componentes (envelhecimento acelerado)'
+                },
+                falcao: {
+                    nome: 'Falcão Bauer', faturamento: 12000000, investimento: 1800000, projecao: 12420000, cor: colors.orange,
+                    ensaios_mais: 'Ensaios de impacto em pisos, Ensaios de guarda-corpo',
+                    foco_investimento: 'Atualização de laboratório para resistência a grandes cargas e segurança estrutural.',
+                    ensaios_menos: 'Análise de manuseio e utilização (portas/janelas)'
+                },
+                academia: {
+                    nome: 'Universidades (Academia)', faturamento: 4000000, investimento: 1000000, projecao: 4140000, cor: colors.yellow,
+                    ensaios_mais: 'Simulações computacionais (Térmico/Lumínico), Consultoria em acústica',
+                    foco_investimento: 'Pesquisa em materiais sustentáveis e o desempenho de sistemas construtivos inovadores.',
+                    ensaios_menos: 'Ensaios mecânicos complexos (foco menor em serviços)'
+                },
+                trional: {
+                    nome: 'TRIONAL Ensaios', faturamento: 7000000, investimento: 900000, projecao: 7245000, cor: colors.green,
+                    ensaios_mais: 'Acústica (medições em campo), Ensaios de estanqueidade de esquadrias',
+                    foco_investimento: 'Expansão de escopo para ensaios de segurança, fogo e usabilidade.',
+                    ensaios_menos: 'Desempenho tátil e usabilidade'
+                },
+                sintese: {
+                    nome: 'Síntese Acústica', faturamento: 5000000, investimento: 750000, projecao: 5175000, cor: colors.teal,
+                    ensaios_mais: 'Todos os ensaios acústicos (campo e laboratório)',
+                    foco_investimento: 'Foco em soluções para ruído de vizinhança e isolamento de sistemas prediais.',
+                    ensaios_menos: 'Ensaio de vibração de equipamentos (nicho)'
+                }
+            };
+            
+            const wrappedLabels = [
+                ['Instituto de', 'Pesquisas', 'Tecnológicas'],
+                'Falcão Bauer',
+                ['Universidades', '(Academia)'],
+                'TRIONAL Ensaios',
+                ['Síntese', 'Acústica']
+            ];
+
+            const tooltipTitleCallback = function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+            
+            const defaultTooltipOptions = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            };
+
+            const API_KEY = "";
+            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
+
+            function delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            async function fetchWithRetry(url, options, maxRetries = 5) {
+                for (let i = 0; i < maxRetries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (response.status !== 429) {
+                            return response;
+                        }
+                    } catch (error) {
+                        if (i === maxRetries - 1) throw error;
+                    }
+                    const waitTime = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                    await delay(waitTime);
+                }
+                throw new Error("API request failed after maximum retries.");
+            }
+
+            window.generateAnalysis = async function(labId, analysisType) {
+                const button = document.getElementById(`btn-${labId}-${analysisType}`);
+                const resultDiv = document.getElementById(`result-${labId}-${analysisType}`);
+                const resultText = document.getElementById(`text-${labId}-${analysisType}`);
+                const originalText = button.textContent;
+                const details = labConfig[labId];
+
+                button.disabled = true;
+                button.textContent = "Analisando... ⏳";
+                resultDiv.classList.add('hidden');
+                resultText.textContent = 'Carregando...';
+
+                let systemPrompt = "";
+                let userQuery = "";
+                let resultTitleId = "";
+                
+                if (analysisType === 'strategy') {
+                    systemPrompt = `Você é um consultor estratégico de alto nível, especialista na Norma de Desempenho NBR 15575. Sua tarefa é analisar o perfil de um laboratório brasileiro e, com base em seus pontos fortes (Ensaios Mais Solicitados) e investimento em P&D, sugerir uma estratégia de crescimento ou um nicho de ensaio emergente que deve ser priorizado. O foco deve ser em inovação e agregar valor. Responda em até 50 palavras, focando na recomendação principal.`;
+                    userQuery = `Analise o laboratório ${details.nome}. Faturamento anual estimado: R$ ${details.faturamento.toLocaleString('pt-BR')}. Investimento anual em P&D/Inovação: R$ ${details.investimento.toLocaleString('pt-BR')}. Ensaios mais solicitados: ${details.ensaios_mais}. Foco de investimento: ${details.foco_investimento}. Qual a principal recomendação de nicho de mercado ou estratégia de P&D?`;
+                    resultTitleId = `Análise Gemini:`;
+                } else if (analysisType === 'brainstorm') {
+                    systemPrompt = `Você é um líder de inovação em construção civil no Brasil. Sua tarefa é fazer um brainstorming de uma ideia concreta de projeto de P&D que use o alto investimento e o nicho pouco explorado do laboratório para transformá-lo em um serviço de alta demanda. Use o nicho 'Ensaios Menos Solicitados' como ponto de partida. Responda em até 50 palavras, sugerindo o NOME do projeto e seu principal OBJETIVO, sempre em português.`;
+                    userQuery = `O laboratório ${details.nome} tem R$ ${details.investimento.toLocaleString('pt-BR')} de investimento em P&D e seu nicho menos solicitado é: ${details.ensaios_menos}. Crie uma ideia de projeto inovador para este nicho.`;
+                    resultTitleId = `Brainstorm Gemini:`;
+                } else {
+                    resultText.textContent = 'Tipo de análise desconhecido.';
+                    resultDiv.classList.remove('hidden');
+                    return;
+                }
+
+                try {
+                    const payload = {
+                        contents: [{ parts: [{ text: userQuery }] }],
+                        systemInstruction: {
+                            parts: [{ text: systemPrompt }]
+                        },
+                    };
+
+                    const response = await fetchWithRetry(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Erro ao gerar análise. Tente novamente.";
+
+                    resultDiv.querySelector('.font-bold').textContent = resultTitleId;
+                    resultText.textContent = text;
+                    resultDiv.classList.remove('hidden');
+
+                } catch (error) {
+                    console.error("Gemini API Error:", error);
+                    resultText.textContent = `Falha na comunicação com a IA. Código de erro: ${error.message}.`;
+                    resultDiv.classList.remove('hidden');
+                } finally {
+                    button.disabled = false;
+                    button.textContent = originalText;
+                }
+            };
+
+
+            if (document.getElementById('marketShareChart')) {
+                const ctx = document.getElementById('marketShareChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: wrappedLabels,
+                        datasets: [{
+                            label: 'Faturamento NBR 15575',
+                            data: [
+                                labConfig.ipt.faturamento,
+                                labConfig.falcao.faturamento,
+                                labConfig.academia.faturamento,
+                                labConfig.trional.faturamento,
+                                labConfig.sintese.faturamento
+                            ],
+                            backgroundColor: chartColors,
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        ...defaultTooltipOptions,
+                        plugins: {
+                            ...defaultTooltipOptions.plugins,
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { size: 10 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            if (document.getElementById('projectionChart')) {
+                const ctx = document.getElementById('projectionChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: wrappedLabels,
+                        datasets: [
+                            {
+                                label: 'Faturamento 2024 (R$)',
+                                data: [
+                                    labConfig.ipt.faturamento,
+                                    labConfig.falcao.faturamento,
+                                    labConfig.academia.faturamento,
+                                    labConfig.trional.faturamento,
+                                    labConfig.sintese.faturamento
+                                ],
+                                backgroundColor: colors.blueGray,
+                            },
+                            {
+                                label: 'Projeção 2025 (R$)',
+                                data: [
+                                    labConfig.ipt.projecao,
+                                    labConfig.falcao.projecao,
+                                    labConfig.academia.projecao,
+                                    labConfig.trional.projecao,
+                                    labConfig.sintese.projecao
+                                ],
+                                backgroundColor: colors.teal,
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        ...defaultTooltipOptions,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return (value / 1000000) + 'M';
+                                    }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    font: { size: 10 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            if (document.getElementById('investmentChart')) {
+                const ctx = document.getElementById('investmentChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bubble',
+                    data: {
+                        datasets: [
+                            {
+                                label: 'IPT',
+                                data: [{ x: labConfig.ipt.faturamento, y: labConfig.ipt.investimento, r: 25 }],
+                                backgroundColor: colors.red
+                            },
+                            {
+                                label: 'Falcão Bauer',
+                                data: [{ x: labConfig.falcao.faturamento, y: labConfig.falcao.investimento, r: 22 }],
+                                backgroundColor: colors.orange
+                            },
+                            {
+                                label: 'Academia',
+                                data: [{ x: labConfig.academia.faturamento, y: labConfig.academia.investimento, r: 15 }],
+                                backgroundColor: colors.yellow
+                            },
+                            {
+                                label: 'TRIONAL Ensaios',
+                                data: [{ x: labConfig.trional.faturamento, y: labConfig.trional.investimento, r: 18 }],
+                                backgroundColor: colors.green
+                            },
+                            {
+                                label: 'Síntese Acústica',
+                                data: [{ x: labConfig.sintese.faturamento, y: labConfig.sintese.investimento, r: 16 }],
+                                backgroundColor: colors.teal
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        const item = tooltipItems[0];
+                                        return item.chart.data.datasets[item.datasetIndex].label;
+                                    },
+                                    label: function(context) {
+                                        const data = context.dataset.data[context.dataIndex];
+                                        return [
+                                            `Faturamento: R$ ${(data.x / 1000000).toFixed(1)}M`,
+                                            `Investimento: R$ ${(data.y / 1000000).toFixed(1)}M`
+                                        ];
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: { display: true, text: 'Faturamento 2024 (R$)' },
+                                ticks: {
+                                    callback: function(value) {
+                                        return (value / 1000000) + 'M';
+                                    }
+                                }
+                            },
+                            y: {
+                                title: { display: true, text: 'Investimento P&D (R$)' },
+                                ticks: {
+                                    callback: function(value) {
+                                        return (value / 1000000) + 'M';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+        })();
+    </script>
 </body>
 </html>
